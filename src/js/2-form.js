@@ -1,5 +1,5 @@
 
-let formValue = {
+let formData = {
     email: '',
     message: ''
   };
@@ -16,15 +16,15 @@ let formValue = {
   
     if (savedData) {
       formValue = JSON.parse(savedData);
-      emailInput.value = formValue.email || '';
-      messageInput.value = formValue.message || '';
+      emailInput.data = formData.email || '';
+      messageInput.data = formData.message || '';
     }
   }
   
   form.addEventListener('input', event => {
-    formValue[event.target.name] = event.target.value.trim(); 
+    formData[event.target.name] = event.target.data.trim(); 
   
-   localStorage.setItem('feedback-form-state', JSON.stringify(formValue));
+   localStorage.setItem('feedback-form-state', JSON.stringify(formData));
   });
   
  
@@ -32,13 +32,13 @@ let formValue = {
     event.preventDefault();
   
    
-    if (!formValue.email || !formValue.message) {
+    if (!formData.email || !formData.message) {
       alert('Fill please all fields');
       return;
     }
   
    
     localStorage.removeItem('feedback-form-state');
-    formValue = { email: '', message: '' };
+    formData = { email: '', message: '' };
     form.reset();
   });
