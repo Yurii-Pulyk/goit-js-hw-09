@@ -1,5 +1,7 @@
 
-let formData = {
+
+
+  let formData = {
     email: '',
     message: ''
   };
@@ -8,26 +10,27 @@ let formData = {
   const emailInput = form.elements.email;
   const messageInput = form.elements.message;
   
- 
+  
   document.addEventListener('DOMContentLoaded', populateForm);
   
   function populateForm() {
     const savedData = localStorage.getItem('feedback-form-state');
   
     if (savedData) {
-      formValue = JSON.parse(savedData);
-      emailInput.data = formData.email || '';
-      messageInput.data = formData.message || '';
+      formData = JSON.parse(savedData);
+      emailInput.value = formData.email || '';
+      messageInput.value = formData.message || '';
     }
   }
   
+ 
   form.addEventListener('input', event => {
-    formData[event.target.name] = event.target.data.trim(); 
+    formData[event.target.name] = event.target.value.trim(); 
   
-   localStorage.setItem('feedback-form-state', JSON.stringify(formData));
+    localStorage.setItem('feedback-form-state', JSON.stringify(formData));
   });
   
- 
+  
   form.addEventListener('submit', event => {
     event.preventDefault();
   
@@ -37,7 +40,9 @@ let formData = {
       return;
     }
   
-   
+    console.log(formData);
+  
+    
     localStorage.removeItem('feedback-form-state');
     formData = { email: '', message: '' };
     form.reset();
